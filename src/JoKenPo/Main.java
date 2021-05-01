@@ -1,5 +1,6 @@
 package JoKenPo;
 
+import java.util.Random;
 import java.util.Scanner;
 
 public class Main {
@@ -13,17 +14,52 @@ public class Main {
 		
 		System.out.print("Usuario: ");
 		
-		Usuario usuario = new Usuario();
-		usuario.setEscolha(0);
-		usuario.setName("Rodolfo");
+		Jogador usuario = new Jogador();
+		Jogador computador = new Jogador();
 		
-		
-		
-		Escolhas jogada = new Escolhas();
-		//jogada.getJogada();
+		Escolha escolhaU = new Escolha();
+		Escolha escolhaC = new Escolha();
 		
 		Scanner leitor = new Scanner(System.in);
-		int jogadaUsuario = usuario.setuEscolha(leitor.nextInt());
+		escolhaU.setJogada(leitor.nextInt());
+		Escolha jogadaUsuario = usuario.setEscolha(escolhaU);
+		
+		Random geradorN = new Random();
+		escolhaC.setJogada(geradorN.nextInt(3));
+		Escolha jogadaComputador = computador.setEscolha(escolhaC);
+		
+		switch (jogadaComputador.getJogada()) {
+		case 0:
+			System.out.println("Computador escolheu papel.");
+			
+			break;
+		case 1:
+			System.out.println("Computador escolheu pedra.");
+			
+			break;
+			
+		case 2:
+			System.out.println("Computador escolheu tesoura.");
+			
+			break;
+			
+		}
+		
+		if (0 <= jogadaUsuario.getJogada() && jogadaUsuario.getJogada() <= 2) {
+			
+			if (jogadaUsuario.getJogada() == jogadaComputador.getJogada()) {
+				System.out.println("Empate");
+			} else {
+				if ((jogadaUsuario.getJogada() == 0 && jogadaComputador.getJogada() == 2) || (jogadaUsuario.getJogada() == 1 && jogadaComputador.getJogada() == 0)
+						|| (jogadaUsuario.getJogada() == 2 && jogadaComputador.getJogada() == 1)) {
+					System.out.println("Computador venceu!");
+				} else {
+					System.out.println("Jogador venceu!");
+				}
+			}
+		} else {
+			System.out.println("Você jogou um número inválido!");
+		}
 		
 	
 	}
